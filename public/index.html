@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Rate Limiter - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Intelligent Rate Limiter Dashboard</h1>
+            <p>Real-time monitoring of API rate limiting and security violations</p>
+        </header>
+
+        <div class="panel chart-panel">
+            <h2>📈 Live Traffic Overview</h2>
+            <canvas id="trafficChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Active Users</h3>
+                <div class="stat-value" id="activeUsers">0</div>
+                <p>Currently tracked identifiers</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Requests in Queues</h3>
+                <div class="stat-value" id="totalRequests">0</div>
+                <p>Requests in sliding window</p>
+            </div>
+            <div class="stat-card">
+                <h3>Free Tier Limit</h3>
+                <div class="stat-value" id="freeLimit">5</div>
+                <p>Requests per minute</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pro Tier Limit</h3>
+                <div class="pro-limit-control">
+                    <input type="number" id="proLimitInput" min="1" step="1" value="100">
+                    <button id="updateProLimitBtn">Update</button>
+                </div>
+                <p>Requests per minute</p>
+                <div id="settingsMessage" class="settings-message"></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="panel">
+                <h2>📊 Active Users & Queue Sizes</h2>
+                <div class="table-container">
+                    <table id="activeUsersTable">
+                        <thead>
+                            <tr>
+                                <th>Identifier</th>
+                                <th>Queue Size</th>
+                                <th>Last Request</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="no-data">No active users</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>🚨 Recent Security Violations</h2>
+                <div class="table-container">
+                    <table id="violationsTable">
+                        <thead>
+                            <tr>
+                                <th>Identifier</th>
+                                <th>Violation Type</th>
+                                <th>Endpoint</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="no-data">No violations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>🚫 IP Blacklist Management</h2>
+            <div class="blacklist-controls">
+                <div class="add-ip-control">
+                    <input type="text" id="blockIPInput" placeholder="Enter IP address (IPv4: 192.168.1.1 or IPv6: 2001:db8)">
+                    <button id="blockIPBtn">Block IP</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="blacklistTable">
+                    <thead>
+                        <tr>
+                            <th>Blocked IP</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="no-data">No blocked IPs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>Dashboard updates every 2 seconds • Built with Express.js & MongoDB</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
